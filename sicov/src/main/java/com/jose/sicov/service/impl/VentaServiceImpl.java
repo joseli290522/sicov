@@ -18,6 +18,7 @@ import com.jose.sicov.model.Lote;
 import com.jose.sicov.model.Producto;
 import com.jose.sicov.model.Venta;
 import com.jose.sicov.repository.ClienteRepository;
+import com.jose.sicov.repository.DetalleVentaRepository;
 import com.jose.sicov.repository.LoteRepository;
 import com.jose.sicov.repository.ProductoRepository;
 import com.jose.sicov.repository.VentaRepository;
@@ -36,6 +37,8 @@ public class VentaServiceImpl {
     private ProductoRepository productoRepository; 
     @Autowired
     private LoteRepository loteRepository;
+    @Autowired
+    private DetalleVentaRepository detalleVentaRepository;
 
     /**
      * Procesa, valida y registra una nueva venta, y descuenta el inventario.
@@ -78,6 +81,8 @@ public class VentaServiceImpl {
             // Nota: Aquí se podría guardar el detalle si se usara DetalleVentaRepository,
             // pero si la lista 'detalles' en Venta está en CascadeType.ALL, se guarda automáticamente.
             // Para ser explícitos: detalleVentaRepository.save(detalle);
+            detalleVentaRepository.save(detalle);
+
 
             // 5. Descontar inventario (CRÍTICO: con validación en la query)
             int rowsAffected = loteRepository.descontarInventario(detalleDTO.getLoteId(), detalleDTO.getCantidad());
