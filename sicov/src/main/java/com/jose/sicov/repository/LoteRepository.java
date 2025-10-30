@@ -5,28 +5,26 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.jose.sicov.model.Lote;
 import java.util.List;
 import java.util.Optional;
 
 public interface LoteRepository extends JpaRepository<Lote, Long>, JpaSpecificationExecutor<Lote> {
 
-    // 1. CLAVE: Obtener stock disponible para la venta
-    // Spring JPA entiende 'productoId' como la ID de la entidad relacionada
-    List<Lote> findByProductoIdAndCantidadActualGreaterThanAndEliminadoFalse(Long productoId, Integer cantidad);
-    
-    // 2. Para la entrada: Busca si el lote existe por sus 3 claves
-    Optional<Lote> findByProductoIdAndAlmacenIdAndNumeroLoteAndEliminadoFalse(
+    // --- LÓGICA DE COMPRAS (ENTRADA: UPSERT) ---
+    // Buscar un lote activo existente por Producto, Almacén y Número de Lote para sumar stock.
+    Optional<Lote> findByProductoIdAndAlmacenIdAndNumeroLoteAndActivoTrue(
         Long productoId, Long almacenId, String numeroLote);
-    
-    List<Lote> findByProductoIdAndCantidadActualGreaterThanOrderByFechaVencimientoAsc(Long productoId, int stock);
 
-    /**
-     * Descuenta la cantidad del inventario del lote, asegurando que no haya stock negativo.
-     * @return El número de filas actualizadas (0 si el inventario fue insuficiente).
-     */
+    // --- LÓGICA DE VENTAS (SALIDA FIFO/FEFO) ---
+    // Consulta para obtener lotes con stock, ordenados por fecha de vencimiento ascendente (FEFO).
+    @Query("SELECT l FROM Lote l WHERE l.producto.id = :productoId AND l.cantidadActual > 0 AND l.activo = true ORDER BY l.fechaVencimiento ASC, l.creadoEn ASC")
+    List<Lote> findLotesDisponiblesParaVenta(
+        @Param("productoId") Long productoId);
+
+    // CRÍTICO: Descuenta la cantidad del inventario de forma atómica.
     @Modifying
-    @Query("UPDATE Lote l SET l.cantidadActual = l.cantidadActual - :cantidadVendida WHERE l.id = :loteId AND l.cantidadActual >= :cantidadVendida")
-    int descontarInventario(@Param("loteId") Long loteId, @Param("cantidadVendida") Integer cantidadVendida);
+    @Query("UPDATE Lote l SET l.cantidadActual = l.cantidadActual - :cantidad WHERE l.id = :loteId AND l.cantidadActual >= :cantidad")
+    int descontarInventario(@Param("loteId") Long loteId, @Param("cantidad") Integer cantidad);
+
 }

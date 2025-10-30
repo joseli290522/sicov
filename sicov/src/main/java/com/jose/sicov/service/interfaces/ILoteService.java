@@ -1,22 +1,14 @@
 package com.jose.sicov.service.interfaces;
 
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import com.jose.sicov.dto.LoteDTO;
-import com.jose.sicov.dto.LoteEntradaDTO;
+import com.jose.sicov.dto.DetalleCompraDTO;
+import com.jose.sicov.model.Lote;
 
 public interface ILoteService {
-    
-    LoteDTO registrarEntrada(LoteEntradaDTO dto); 
-    
-    // Método de búsqueda paginada, recibe los parámetros directamente
-    Page<LoteDTO> buscarLotesPaginados(
-        Long productoId, 
-        Long almacenId, 
-        String numeroLote, 
-        Boolean stockDisponible, 
-        Boolean vencido,
-        Pageable pageable // Objeto de Paginación y Ordenamiento
-    );
+    /**
+     * Módulo COMPRAS: Registra la entrada de stock (Lógica UPSERT: Update or Insert).
+     * @param detalleDTO Datos de la línea de compra, incluyendo numeroLote y fechaVencimiento.
+     * @param almacenId El ID del almacén de destino.
+     * @return El Lote creado o actualizado.
+     */
+    Lote registrarEntrada(DetalleCompraDTO detalleDTO, Long almacenId);
 }
