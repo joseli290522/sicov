@@ -4,7 +4,6 @@ import com.jose.sicov.dto.VentaDTO;
 import com.jose.sicov.model.Venta;
 import com.jose.sicov.repository.VentaRepository;
 import com.jose.sicov.service.impl.VentaServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
