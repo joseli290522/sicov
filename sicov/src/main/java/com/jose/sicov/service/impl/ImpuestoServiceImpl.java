@@ -17,5 +17,13 @@ public class ImpuestoServiceImpl implements IImpuestoService {
      public List<Impuesto> listar() {
         return impuestoRepository.findAll();
     }
+
+    public List<Impuesto> listarIvaImpuestos() {
+        return impuestoRepository.findByTipoAndActivoTrue("IVA");
+    }
+
+    public List<Impuesto> listarIepsImpuestos() {
+        return impuestoRepository.findByTipoAndActivoTrue("IEPS");
+    }
     
 }
