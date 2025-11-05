@@ -24,7 +24,7 @@ public class ImpuestoController {
       
     @GetMapping("/iva")
     public ResponseEntity<List<Impuesto>> listarIvaImpuestos() {
-        return ResponseEntity.ok(impuestoService.listarIepsImpuestos());
+        return ResponseEntity.ok(impuestoService.listarIvaImpuestos());
     }
 
     @GetMapping("/ieps")
