@@ -3,6 +3,7 @@ package com.jose.sicov.service.impl;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.jose.sicov.model.Impuesto;
+import com.jose.sicov.model.TipoImpuesto;
 import com.jose.sicov.repository.ImpuestoRepository;
 import com.jose.sicov.service.interfaces.IImpuestoService;
 
@@ -19,11 +20,11 @@ public class ImpuestoServiceImpl implements IImpuestoService {
     }
 
     public List<Impuesto> listarIvaImpuestos() {
-        return impuestoRepository.findByTipoAndActivoTrue("IVA");
+        return impuestoRepository.findByTipoAndActivoTrue(TipoImpuesto.IVA);
     }
 
     public List<Impuesto> listarIepsImpuestos() {
-        return impuestoRepository.findByTipoAndActivoTrue("IEPS");
+        return impuestoRepository.findByTipoAndActivoTrue(TipoImpuesto.IEPS);
     }
     
 }
