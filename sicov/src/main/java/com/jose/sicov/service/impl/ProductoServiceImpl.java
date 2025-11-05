@@ -69,6 +69,9 @@ public class ProductoServiceImpl implements IProductoService {
         producto.setCategoria(categoriaRepository.findById(dto.getCategoriaId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("Categoría no encontrada")));
 
+         producto.setUnidadMedida(unidadMedidaRepository.findById(dto.getUnidadMedidaId())
+                .orElseThrow(() -> new RecursoNoEncontradoException("Unidad de medida no encontrada")));
+
         producto.setUnidadMedida(unidadMedidaRepository.findById(dto.getUnidadMedidaId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("Unidad de medida no encontrada")));
 
