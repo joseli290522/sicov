@@ -42,10 +42,10 @@ public class VentaController {
     
     // GET /api/ventas/{id} - UI: Detalle de Venta/Ticket
     @GetMapping("/{id}")
-    public ResponseEntity<Venta> obtenerVentaPorId(@PathVariable Long id) {
+    public ResponseEntity<VentaDTO> obtenerVentaPorId(@PathVariable Long id) {
         // NOTA: Para obtener los Lotes y Vencimientos en el ticket,
         // Eli debe asegurar que el frontend acceda a: Venta -> Detalles -> LotesConsumidos -> Lote
         Optional<Venta> venta = ventaRepository.findById(id); 
-        return venta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(venta.get().getDto());
     }
 }
