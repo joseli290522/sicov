@@ -52,12 +52,13 @@ public class VentaServiceImpl {
             venta.setImpuestoIEPS(impuestoRepository.findById(ventaDTO.getImpuestoIepsId())
                     .orElseThrow(() -> new RecursoNoEncontradoException("IEPS no encontrado")));
         }
-        
+
         //venta.setImpuestoIEPS(ieps);
         venta.setSubtotal(ventaDTO.getSubtotal());
         venta.setTotalFinal(ventaDTO.getTotalFinal()); 
         venta.setFechaVenta(ventaDTO.getFechaVenta());
         venta.setMetodoPago(ventaDTO.getMetodoPago());
+        venta.setMontoRecibido(ventaDTO.getMontoRecibido());
         venta.setActivo(true);
         
         List<DetalleVenta> detallesVenta = new ArrayList<>();

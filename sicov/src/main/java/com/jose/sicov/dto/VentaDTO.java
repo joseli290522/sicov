@@ -38,4 +38,6 @@ public class VentaDTO {
     private LocalDate fechaVenta = LocalDate.now();
 
     private List<DetalleVentaDTO> detalles;
+
+    private BigDecimal montoRecibido;
 }

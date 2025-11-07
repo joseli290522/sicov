@@ -50,6 +50,9 @@ public class Venta extends Base implements IMapper<VentaDTO> {
     @JoinColumn(name = "impuesto_ieps_id")
     private Impuesto impuestoIEPS;
 
+    @Column(name = "monto_recibido") 
+    private BigDecimal montoRecibido;
+
     @Override
     public VentaDTO getDto() {
         return VentaDTO.builder()
@@ -72,6 +75,8 @@ public class Venta extends Base implements IMapper<VentaDTO> {
 
             .impuestoIepsId(this.impuestoIEPS != null ? this.impuestoIEPS.getId() : null)
             .iepsPorcentaje(this.impuestoIEPS != null ? this.impuestoIEPS.getPorcentaje() : BigDecimal.ZERO)
+
+            .montoRecibido(this.montoRecibido)
 
             .build();
     }
