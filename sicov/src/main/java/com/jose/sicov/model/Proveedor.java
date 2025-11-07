@@ -41,6 +41,7 @@ public class Proveedor extends Base implements IMapper<ProveedorDTO> {
     @Override
     public ProveedorDTO getDto() {
         return ProveedorDTO.builder()
+            .id(this.id)   
             .nombre(this.nombre)
             .telefono(this.telefono)
             .email(this.email)
