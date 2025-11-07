@@ -82,6 +82,6 @@ public class Producto extends Base implements IMapper<ProductoDTO> {
         this.descripcion = dto.getDescripcion();
         this.precio = dto.getPrecio();
         this.activo = dto.getActivo();
-        this.eliminado = dto.getEliminado();
+        this.eliminado = dto.getEliminado() != null ? dto.getEliminado() : false;
     }    
 }
