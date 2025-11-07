@@ -28,8 +28,6 @@ public class VentaServiceImpl {
     @Transactional
     public Venta registrarNuevaVenta(VentaDTO ventaDTO) {
 
-        // ... (Validaciones y Mapeo de Cabecera Venta)
-
         // 1. Validar Cliente
         Cliente cliente = clienteRepository.findById(ventaDTO.getClienteId())
             .orElseThrow(() -> new NoSuchElementException("Cliente no encontrado con ID: " + ventaDTO.getClienteId()));

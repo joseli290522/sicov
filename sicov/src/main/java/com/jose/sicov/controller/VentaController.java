@@ -29,14 +29,14 @@ public class VentaController {
     
     // GET /api/ventas - UI: Tabla de "Gestión de Ventas"
     @GetMapping
-    public ResponseEntity<Page<Venta>> listarVentas(
+    public ResponseEntity<Page<VentaDTO>> listarVentas(
         @RequestParam(required = false) String query, // Búsqueda por Cliente/ID
         Pageable pageable) 
     {
         if (query != null && !query.trim().isEmpty()) {
-            return ResponseEntity.ok(ventaRepository.searchVentas(query.trim(), pageable));
+            return ResponseEntity.ok(ventaRepository.searchVentas(query.trim(), pageable).map(Venta::getDto));
         } else {
-            return ResponseEntity.ok(ventaRepository.findAll(pageable));
+            return ResponseEntity.ok(ventaRepository.findAll(pageable).map(Venta::getDto));
         }
     }
     

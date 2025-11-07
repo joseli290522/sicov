@@ -9,6 +9,8 @@ import lombok.Data;
 public class DetalleVentaDTO {
 
     private Long productoId;
+    private String productoNombre;
+    
     private Integer cantidad; 
     private BigDecimal precioUnitarioVenta;
     private BigDecimal subtotalDetalle;

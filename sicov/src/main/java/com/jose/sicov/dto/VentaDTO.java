@@ -10,9 +10,14 @@ import java.util.List;
 @Data
 @Builder
 public class VentaDTO {
+
+    private Long id;
     
-    private Long clienteId;    
+    private Long clienteId;
+    private String clienteNombre;
+
     private Long almacenId;
+    private String almacenNombre;
 
     // Campos Financieros
     private BigDecimal subtotal;
