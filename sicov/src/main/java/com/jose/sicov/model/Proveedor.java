@@ -1,5 +1,8 @@
 package com.jose.sicov.model;
 
+import com.jose.sicov.dto.ProveedorDTO;
+import com.jose.sicov.util.IMapper;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +20,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Proveedor extends Base {
+public class Proveedor extends Base implements IMapper<ProveedorDTO> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +37,22 @@ public class Proveedor extends Base {
 
     @Column(name = "direccion", length = 255)
     private String direccion;
+
+    @Override
+    public ProveedorDTO getDto() {
+        return ProveedorDTO.builder()
+            .nombre(this.nombre)
+            .telefono(this.telefono)
+            .email(this.email)
+            .direccion(this.direccion)
+            .build();
+    }
+
+    @Override
+    public void setData(ProveedorDTO dto) {
+        this.nombre = dto.getNombre();
+        this.telefono = dto.getTelefono();
+        this.email = dto.getEmail();
+        this.direccion = dto.getDireccion();
+    }
 }

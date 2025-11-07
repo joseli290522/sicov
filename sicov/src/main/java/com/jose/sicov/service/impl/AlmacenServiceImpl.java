@@ -20,8 +20,8 @@ public class AlmacenServiceImpl implements IAlmacenService {
 
     @Override
     public Page<AlmacenDTO> listar(String nombre, String ubicacion, Boolean activo, Pageable pageable) {
-       Specification<Almacen> spec = AlmacenSpecification.filtrar(nombre, ubicacion, activo);
-       return almacenRepository.findAll(spec, pageable).map(Almacen::getDto);
+        Specification<Almacen> spec = AlmacenSpecification.filtrar(nombre, ubicacion, activo);
+        return almacenRepository.findAll(spec, pageable).map(Almacen::getDto);
     }
 
     @Override
@@ -38,13 +38,14 @@ public class AlmacenServiceImpl implements IAlmacenService {
     @Override
     public AlmacenDTO actualizar(AlmacenDTO dto) {
         Almacen almacen = almacenRepository.findById(dto.getId())
-            .orElseThrow(() -> new RecursoNoEncontradoException("Almacén con el ID " + dto.getId() + " no encontrado"));
+                .orElseThrow(
+                        () -> new RecursoNoEncontradoException("Almacén con el ID " + dto.getId() + " no encontrado"));
 
-        if (!almacen.getNombre().equalsIgnoreCase(dto.getNombre()) && 
+        if (!almacen.getNombre().equalsIgnoreCase(dto.getNombre()) &&
                 almacenRepository.findByNombre(dto.getNombre()).isPresent()) {
-                    throw new IllegalArgumentException("Ya existe un almacén con ese nombre");
-                }
-        
+            throw new IllegalArgumentException("Ya existe un almacén con ese nombre");
+        }
+
         almacen.setData(dto);
         return almacenRepository.save(almacen).getDto();
     }
@@ -52,7 +53,7 @@ public class AlmacenServiceImpl implements IAlmacenService {
     @Override
     public AlmacenDTO eliminar(Long id) {
         Almacen almacen = almacenRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Almacén con el ID " + id + " no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Almacén con el ID " + id + " no encontrado"));
 
         almacen.setEliminado(true);
         almacen.setActivo(false);
@@ -62,10 +63,10 @@ public class AlmacenServiceImpl implements IAlmacenService {
     @Override
     public AlmacenDTO cambiarEstado(Long id, boolean activo) {
         Almacen almacen = almacenRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Almacén con el ID " + id + " no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Almacén con el ID " + id + " no encontrado"));
 
         almacen.setActivo(activo);
         return almacenRepository.save(almacen).getDto();
     }
-    
+
 }
