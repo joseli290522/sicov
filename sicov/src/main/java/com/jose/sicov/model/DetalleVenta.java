@@ -42,6 +42,7 @@ public class DetalleVenta extends Base implements IMapper<DetalleVentaDTO> {
             .productoNombre(this.producto != null ? this.producto.getNombre() : null)
             .cantidad(this.cantidad)
             .precioUnitarioVenta(this.precioUnitarioVenta)
+            .subtotalDetalle(this.precioUnitarioVenta.multiply(new BigDecimal(this.cantidad)))            
             .build();
     }
 

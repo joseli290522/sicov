@@ -54,18 +54,25 @@ public class Venta extends Base implements IMapper<VentaDTO> {
     public VentaDTO getDto() {
         return VentaDTO.builder()
             .id(this.id)
+
+            .clienteId(this.cliente != null ? this.cliente.getId() : null)
             .clienteNombre(this.cliente != null ? this.cliente.getNombre() : null)
+
+            .almacenId(this.almacen != null ? this.almacen.getId() : null)
             .almacenNombre(this.almacen != null ? this.almacen.getNombre() : null)
+
             .fechaVenta(this.fechaVenta)
             .subtotal(this.subtotal)
             .totalFinal(this.totalFinal)
             .metodoPago(this.metodoPago)
             .detalles(this.detalles.stream().map(DetalleVenta::getDto).collect(Collectors.toList()))
 
+            .impuestoIvaId(this.impuestoIVA != null ? this.impuestoIVA.getId() : null)
             .ivaPorcentaje(this.impuestoIVA != null ? this.impuestoIVA.getPorcentaje() : BigDecimal.ZERO)
 
+            .impuestoIepsId(this.impuestoIEPS != null ? this.impuestoIEPS.getId() : null)
             .iepsPorcentaje(this.impuestoIEPS != null ? this.impuestoIEPS.getPorcentaje() : BigDecimal.ZERO)
-            
+
             .build();
     }
 

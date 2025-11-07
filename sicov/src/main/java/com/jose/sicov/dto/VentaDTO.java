@@ -28,13 +28,11 @@ public class VentaDTO {
     private Long impuestoIepsId;
     private BigDecimal iepsPorcentaje;
     
-    private BigDecimal descuentoMonto;
     
     private BigDecimal totalFinal;
 
     // Campos de Pago
     private String metodoPago; 
-    private BigDecimal montoRecibido; 
     
     @Builder.Default
     private LocalDate fechaVenta = LocalDate.now();
