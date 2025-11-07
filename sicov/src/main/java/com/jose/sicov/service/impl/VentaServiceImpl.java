@@ -40,16 +40,20 @@ public class VentaServiceImpl {
         Impuesto iva = impuestoRepository.findById(ventaDTO.getImpuestoIvaId())
             .orElseThrow(() -> new NoSuchElementException("IVA no encontrado"));
         
-        Impuesto ieps = impuestoRepository.findById(ventaDTO.getImpuestoIepsId())
-            .orElseThrow(() -> new NoSuchElementException("IEPS no encontrado"));
-        
+       
 
         // 2. Crear la cabecera
         Venta venta = new Venta();
         venta.setCliente(cliente);
         venta.setAlmacen(almacen);
         venta.setImpuestoIVA(iva);
-        venta.setImpuestoIEPS(ieps);
+
+        if (ventaDTO.getImpuestoIepsId() != null) {
+            venta.setImpuestoIEPS(impuestoRepository.findById(ventaDTO.getImpuestoIepsId())
+                    .orElseThrow(() -> new RecursoNoEncontradoException("IEPS no encontrado")));
+        }
+        
+        //venta.setImpuestoIEPS(ieps);
         venta.setSubtotal(ventaDTO.getSubtotal());
         venta.setTotalFinal(ventaDTO.getTotalFinal()); 
         venta.setFechaVenta(ventaDTO.getFechaVenta());
