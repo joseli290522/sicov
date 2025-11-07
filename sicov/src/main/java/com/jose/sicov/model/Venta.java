@@ -42,6 +42,14 @@ public class Venta extends Base implements IMapper<VentaDTO> {
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "impuesto_iva_id")
+    private Impuesto impuestoIVA;
+
+    @ManyToOne
+    @JoinColumn(name = "impuesto_ieps_id")
+    private Impuesto impuestoIEPS;
+
     @Override
     public VentaDTO getDto() {
         return VentaDTO.builder()
@@ -53,6 +61,11 @@ public class Venta extends Base implements IMapper<VentaDTO> {
             .totalFinal(this.totalFinal)
             .metodoPago(this.metodoPago)
             .detalles(this.detalles.stream().map(DetalleVenta::getDto).collect(Collectors.toList()))
+
+            .ivaPorcentaje(this.impuestoIVA != null ? this.impuestoIVA.getPorcentaje() : BigDecimal.ZERO)
+
+            .iepsPorcentaje(this.impuestoIEPS != null ? this.impuestoIEPS.getPorcentaje() : BigDecimal.ZERO)
+            
             .build();
     }
 
