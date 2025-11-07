@@ -13,9 +13,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DetalleCompraDTO {
 
+    private Long id;
+    private Long compraId;
+
     private Long productoId;
-    private Integer cantidad;
-    private BigDecimal costoUnitario;
+    private String productoNombre;
+
+    private Long loteId;
     private String numeroLote;
     private LocalDate fechaVencimiento;
+
+    private Integer cantidad;
+    private BigDecimal costoUnitario;
+
+    private BigDecimal subtotalDetalle;
+
+    
 }

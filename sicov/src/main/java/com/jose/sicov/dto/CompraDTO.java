@@ -10,12 +10,18 @@ import lombok.Data;
 @Builder
 public class CompraDTO {
 
+    private Long id;
+
     private Long proveedorId;
-    private Long almacenId; 
+    private String proveedorNombre;
+
+    private Long almacenId;
+    private String almacenNombre; 
 
     @Builder.Default
     private LocalDate fechaCompra = LocalDate.now(); 
     
     private BigDecimal total;
+    
     private List<DetalleCompraDTO> detalles;
 }

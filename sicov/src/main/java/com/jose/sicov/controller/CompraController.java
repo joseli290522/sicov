@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 @RestController
@@ -22,21 +21,21 @@ public class CompraController {
 
     // POST /api/compras - UI: Botón "Confirmar Compra"
     @PostMapping
-    public ResponseEntity<Compra> registrarCompra(@RequestBody CompraDTO compraDTO) {
+    public ResponseEntity<CompraDTO> registrarCompra(@RequestBody CompraDTO compraDTO) {
         Compra nuevaCompra = compraService.registrarCompra(compraDTO);
-        return new ResponseEntity<>(nuevaCompra, HttpStatus.CREATED);
+        return new ResponseEntity<>(nuevaCompra.getDto(), HttpStatus.CREATED);
     }
     
     // GET /api/compras - UI: Lista de Historial de Compras
     @GetMapping
-    public ResponseEntity<Page<Compra>> listarCompras(Pageable pageable) {
-        return ResponseEntity.ok(compraRepository.findAll(pageable));
+    public ResponseEntity<Page<CompraDTO>> listarCompras(Pageable pageable) {
+        return ResponseEntity.ok(compraRepository.findAll(pageable).map(Compra::getDto));
     }
     
     // GET /api/compras/{id} - UI: Detalle de una compra
     @GetMapping("/{id}")
-    public ResponseEntity<Compra> obtenerCompraPorId(@PathVariable Long id) {
+    public ResponseEntity<CompraDTO> obtenerCompraPorId(@PathVariable Long id) {
         Optional<Compra> compra = compraRepository.findById(id);
-        return compra.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(compra.get().getDto());
     }
 }

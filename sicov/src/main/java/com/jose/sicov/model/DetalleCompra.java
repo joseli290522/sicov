@@ -3,12 +3,14 @@ package com.jose.sicov.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import com.jose.sicov.dto.DetalleCompraDTO;
+import com.jose.sicov.util.IMapper;
 
 @Entity
 @Table(name = "detalles_compra")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class DetalleCompra extends Base {
+public class DetalleCompra extends Base implements IMapper<DetalleCompraDTO> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +33,20 @@ public class DetalleCompra extends Base {
 
     @Column(name = "costo_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal costoUnitario;
+
+    @Override
+    public DetalleCompraDTO getDto() {
+        return DetalleCompraDTO.builder()
+            .productoNombre(this.producto.getNombre())
+            .cantidad(this.cantidad)
+            .costoUnitario(this.costoUnitario)
+            .subtotalDetalle(this.costoUnitario.multiply(new BigDecimal(this.cantidad)))
+            .build();
+    }
+
+    @Override
+    public void setData(DetalleCompraDTO dto) {
+        throw new UnsupportedOperationException("Unimplemented method 'setData'");
+    }
     
 }

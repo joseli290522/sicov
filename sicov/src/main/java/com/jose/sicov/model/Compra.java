@@ -6,11 +6,15 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.jose.sicov.dto.CompraDTO;
+import com.jose.sicov.util.IMapper;
 
 @Entity
 @Table(name = "compras")
 @Getter @Setter
-public class Compra extends Base {
+public class Compra extends Base implements IMapper<CompraDTO> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +36,30 @@ public class Compra extends Base {
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleCompra> detalles;
+
+    @Override
+    public CompraDTO getDto() {
+        return CompraDTO.builder()
+            .id(this.id)
+
+            .proveedorId(this.proveedor.getId())
+            .proveedorNombre(this.proveedor.getNombre())
+
+            .almacenId(this.almacen.getId())
+            .almacenNombre(this.almacen.getNombre())
+
+            .fechaCompra(this.fechaCompra)
+            
+            .total(this.total)
+
+            .detalles(this.detalles.stream().map(DetalleCompra::getDto).collect(Collectors.toList()))
+            
+            .build();
+    }
+
+    @Override
+    public void setData(CompraDTO t) {
+        throw new UnsupportedOperationException("Unimplemented method 'setData'");
+    }
     
 }
