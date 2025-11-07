@@ -49,12 +49,6 @@ public class Producto extends Base implements IMapper<ProductoDTO> {
     @JoinColumn(name = "impuesto_ieps_id")
     private Impuesto impuestoIEPS;
 
-    @Column(nullable = false)
-    private Boolean activo = true;
-
-    @Column(nullable = false)
-    private Boolean eliminado = false;
-
     @Override
     public ProductoDTO getDto() {        
         return ProductoDTO.builder()
