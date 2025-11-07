@@ -37,10 +37,18 @@ public class DetalleCompra extends Base implements IMapper<DetalleCompraDTO> {
     @Override
     public DetalleCompraDTO getDto() {
         return DetalleCompraDTO.builder()
+
             .productoNombre(this.producto.getNombre())
+
             .cantidad(this.cantidad)
+
             .costoUnitario(this.costoUnitario)
+
             .subtotalDetalle(this.costoUnitario.multiply(new BigDecimal(this.cantidad)))
+
+            .numeroLote(this.lote.getNumeroLote())
+            .fechaVencimiento(this.lote.getFechaVencimiento())
+
             .build();
     }
 
