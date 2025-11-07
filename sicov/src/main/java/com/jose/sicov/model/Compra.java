@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class Compra extends Base implements IMapper<CompraDTO> {
     private BigDecimal total;
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleCompra> detalles;
+    private List<DetalleCompra> detalles = new ArrayList<>();
 
     @Override
     public CompraDTO getDto() {
