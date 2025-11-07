@@ -22,9 +22,9 @@ public class VentaController {
 
     // POST /api/ventas - UI: Botón "Confirmar Venta"
     @PostMapping
-    public ResponseEntity<Venta> registrarVenta(@RequestBody VentaDTO ventaDTO) {
+    public ResponseEntity<VentaDTO> registrarVenta(@RequestBody VentaDTO ventaDTO) {
         Venta nuevaVenta = ventaService.registrarNuevaVenta(ventaDTO);
-        return new ResponseEntity<>(nuevaVenta, HttpStatus.CREATED);
+        return new ResponseEntity<>(nuevaVenta.getDto(), HttpStatus.CREATED);
     }
     
     // GET /api/ventas - UI: Tabla de "Gestión de Ventas"
