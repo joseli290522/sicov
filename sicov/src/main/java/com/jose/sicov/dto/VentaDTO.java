@@ -21,8 +21,13 @@ public class VentaDTO {
 
     // Campos Financieros
     private BigDecimal subtotal;
+
+    private Long impuestoIvaId;
     private BigDecimal ivaPorcentaje; 
+
+    private Long impuestoIepsId;
     private BigDecimal iepsPorcentaje;
+    
     private BigDecimal descuentoMonto;
     
     private BigDecimal totalFinal;

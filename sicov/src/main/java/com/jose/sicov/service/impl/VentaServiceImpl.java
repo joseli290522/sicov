@@ -8,6 +8,7 @@ import com.jose.sicov.repository.LoteRepository;
 import com.jose.sicov.repository.VentaRepository;
 import com.jose.sicov.repository.AlmacenRepository;
 import com.jose.sicov.repository.ClienteRepository;
+import com.jose.sicov.repository.ImpuestoRepository;
 import com.jose.sicov.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class VentaServiceImpl {
     @Autowired private AlmacenRepository almacenRepository; 
     @Autowired private ProductoRepository productoRepository; 
     @Autowired private LoteRepository loteRepository;
+    @Autowired private ImpuestoRepository impuestoRepository;
 
     @Transactional
     public Venta registrarNuevaVenta(VentaDTO ventaDTO) {
@@ -34,11 +36,20 @@ public class VentaServiceImpl {
         
         Almacen almacen = almacenRepository.findById(ventaDTO.getAlmacenId())
             .orElseThrow(() -> new NoSuchElementException("Almacén no encontrado con ID: " + ventaDTO.getAlmacenId()));
+        
+        Impuesto iva = impuestoRepository.findById(ventaDTO.getImpuestoIvaId())
+            .orElseThrow(() -> new NoSuchElementException("IVA no encontrado"));
+        
+        Impuesto ieps = impuestoRepository.findById(ventaDTO.getImpuestoIepsId())
+            .orElseThrow(() -> new NoSuchElementException("IEPS no encontrado"));
+        
 
         // 2. Crear la cabecera
         Venta venta = new Venta();
         venta.setCliente(cliente);
         venta.setAlmacen(almacen);
+        venta.setImpuestoIVA(iva);
+        venta.setImpuestoIEPS(ieps);
         venta.setSubtotal(ventaDTO.getSubtotal());
         venta.setTotalFinal(ventaDTO.getTotalFinal()); 
         venta.setFechaVenta(ventaDTO.getFechaVenta());
