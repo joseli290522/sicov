@@ -37,7 +37,7 @@ public class LoteSalida extends Base implements IMapper<LoteSalidaDTO> {
         return LoteSalidaDTO.builder()
             .id(this.id)
             .lote(this.lote.getDto())
-            .detalle(this.detalleVenta.getDto())
+            //.detalle(this.detalleVenta.getDto())
             .cantidadConsumida(this.cantidadConsumida)
             .fechaSalida(this.fechaSalida)
             .build();

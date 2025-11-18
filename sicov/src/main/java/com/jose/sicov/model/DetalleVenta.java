@@ -44,9 +44,7 @@ public class DetalleVenta extends Base implements IMapper<DetalleVentaDTO> {
             .cantidad(this.cantidad)
             .precioUnitarioVenta(this.precioUnitarioVenta)
             .subtotalDetalle(this.precioUnitarioVenta.multiply(new BigDecimal(this.cantidad)))
-
-            //.lotesConsumidos(this.lotesConsumidos.stream().map(LoteSalida::getDto).collect(Collectors.toList()))
-
+            .lotesConsumidos(this.lotesConsumidos.stream().map(LoteSalida::getDto).collect(Collectors.toList()))
             .build();
     }
 

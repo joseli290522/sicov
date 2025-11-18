@@ -14,7 +14,7 @@ public class LoteSalidaDTO {
 
     private LoteDTO lote;
 
-    private DetalleVentaDTO detalle;
+    //private DetalleVentaDTO detalle;
 
     private Integer cantidadConsumida;
 
