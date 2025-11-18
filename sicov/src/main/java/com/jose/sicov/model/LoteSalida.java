@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
 
+import com.jose.sicov.dto.LoteSalidaDTO;
+import com.jose.sicov.util.IMapper;
+
 @Entity
 @Table(name = "lotes_salida")
 @Getter @Setter
-public class LoteSalida extends Base { 
+public class LoteSalida extends Base implements IMapper<LoteSalidaDTO> { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +31,20 @@ public class LoteSalida extends Base {
 
     @Column(name = "fecha_salida", nullable = false)
     private LocalDateTime fechaSalida = LocalDateTime.now();
+
+    @Override
+    public LoteSalidaDTO getDto() {
+        return LoteSalidaDTO.builder()
+            .id(this.id)
+            .lote(this.lote.getDto())
+            .detalle(this.detalleVenta.getDto())
+            .cantidadConsumida(this.cantidadConsumida)
+            .fechaSalida(this.fechaSalida)
+            .build();
+    }
+
+    @Override
+    public void setData(LoteSalidaDTO t) {
+        throw new UnsupportedOperationException("Unimplemented method 'setData'");
+    }
 }

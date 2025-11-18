@@ -68,6 +68,7 @@ public class Venta extends Base implements IMapper<VentaDTO> {
             .subtotal(this.subtotal)
             .totalFinal(this.totalFinal)
             .metodoPago(this.metodoPago)
+            
             .detalles(this.detalles.stream().map(DetalleVenta::getDto).collect(Collectors.toList()))
 
             .impuestoIvaId(this.impuestoIVA != null ? this.impuestoIVA.getId() : null)

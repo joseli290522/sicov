@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jose.sicov.dto.DetalleVentaDTO;
 import com.jose.sicov.util.IMapper;
@@ -42,7 +43,8 @@ public class DetalleVenta extends Base implements IMapper<DetalleVentaDTO> {
             .productoNombre(this.producto != null ? this.producto.getNombre() : null)
             .cantidad(this.cantidad)
             .precioUnitarioVenta(this.precioUnitarioVenta)
-            .subtotalDetalle(this.precioUnitarioVenta.multiply(new BigDecimal(this.cantidad)))            
+            .subtotalDetalle(this.precioUnitarioVenta.multiply(new BigDecimal(this.cantidad)))
+            .lotesConsumidos(this.lotesConsumidos.stream().map(LoteSalida::getDto).collect(Collectors.toList()))
             .build();
     }
 

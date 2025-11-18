@@ -17,7 +17,6 @@ public class LoteController {
     @Autowired
     private LoteRepository loteRepository; 
 
-    // UI de Ventas: Eli necesita esta lista para mostrar el stock y la fecha de vencimiento.
     // GET /api/lotes/producto/{productoId}/disponibles
     @GetMapping("/producto/{productoId}/disponibles")
     public ResponseEntity<List<LoteDTO>> getLotesDisponiblesPorProducto(@PathVariable Long productoId) {
