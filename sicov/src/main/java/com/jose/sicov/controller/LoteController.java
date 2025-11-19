@@ -27,4 +27,14 @@ public class LoteController {
         }
         return ResponseEntity.ok(lotes.stream().map(Lote::getDto).collect(Collectors.toList()));
     }
+
+    @GetMapping
+    public ResponseEntity<List<LoteDTO>> getLotesDisponibles() {
+        // Usa el orden FEFO/FIFO
+        List<Lote> lotes = loteRepository.findAllActiveLotesOrderedByProductAndExpiry();
+        if (lotes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lotes.stream().map(Lote::getDto).collect(Collectors.toList()));
+    }
 }

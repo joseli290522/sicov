@@ -21,8 +21,16 @@ public interface LoteRepository extends JpaRepository<Lote, Long>, JpaSpecificat
     @Query("SELECT l FROM Lote l WHERE l.producto.id = :productoId AND l.cantidadActual > 0 AND l.activo = true ORDER BY l.fechaVencimiento ASC, l.creadoEn ASC")
     List<Lote> findLotesDisponiblesParaVenta(
         @Param("productoId") Long productoId);
-
-    // CRÍTICO: Descuenta la cantidad del inventario de forma atómica.
+    
+    // Lógica de Inventario
+    /**
+     * Consulta para obtener todos los lotes activos en inventario.
+     * Ordena por nombre de producto y luego por fecha de vencimiento (ASC).
+     */
+    @Query("SELECT l FROM Lote l LEFT JOIN FETCH l.producto p WHERE l.activo = true ORDER BY p.nombre ASC, l.fechaVencimiento ASC")
+    List<Lote> findAllActiveLotesOrderedByProductAndExpiry();
+    
+    
     @Modifying
     @Query("UPDATE Lote l SET l.cantidadActual = l.cantidadActual - :cantidad WHERE l.id = :loteId AND l.cantidadActual >= :cantidad")
     int descontarInventario(@Param("loteId") Long loteId, @Param("cantidad") Integer cantidad);
