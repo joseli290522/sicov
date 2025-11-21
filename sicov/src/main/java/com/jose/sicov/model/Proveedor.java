@@ -46,6 +46,7 @@ public class Proveedor extends Base implements IMapper<ProveedorDTO> {
             .telefono(this.telefono)
             .email(this.email)
             .direccion(this.direccion)
+            .activo(this.activo)
             .build();
     }
 
