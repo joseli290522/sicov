@@ -20,7 +20,7 @@ import com.jose.sicov.service.impl.AlmacenServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/almacenes")
+@RequestMapping("/api/v1/almacenes")
 @AllArgsConstructor
 public class AlmacenController {
 

@@ -10,7 +10,7 @@ import com.jose.sicov.service.impl.ImpuestoServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/impuestos")
+@RequestMapping("/api/v1/impuestos")
 @AllArgsConstructor
 public class ImpuestoController {
 

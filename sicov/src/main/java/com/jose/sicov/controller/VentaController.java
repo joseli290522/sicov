@@ -14,20 +14,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ventas")
+@RequestMapping("/api/v1//ventas")
 public class VentaController {
 
     @Autowired private VentaServiceImpl ventaService;
     @Autowired private VentaRepository ventaRepository;
 
-    // POST /api/ventas - UI: Botón "Confirmar Venta"
     @PostMapping
     public ResponseEntity<VentaDTO> registrarVenta(@RequestBody VentaDTO ventaDTO) {
         Venta nuevaVenta = ventaService.registrarNuevaVenta(ventaDTO);
         return new ResponseEntity<>(nuevaVenta.getDto(), HttpStatus.CREATED);
     }
     
-    // GET /api/ventas - UI: Tabla de "Gestión de Ventas"
     @GetMapping
     public ResponseEntity<Page<VentaDTO>> listarVentas(
         @RequestParam(required = false) String query, // Búsqueda por Cliente/ID
@@ -40,12 +38,10 @@ public class VentaController {
         }
     }
     
-    // GET /api/ventas/{id} - UI: Detalle de Venta/Ticket
     @GetMapping("/{id}")
     public ResponseEntity<VentaDTO> obtenerVentaPorId(@PathVariable Long id) {
-        // NOTA: Para obtener los Lotes y Vencimientos en el ticket,
-        // Eli debe asegurar que el frontend acceda a: Venta -> Detalles -> LotesConsumidos -> Lote
         Optional<Venta> venta = ventaRepository.findById(id); 
         return ResponseEntity.ok(venta.get().getDto());
     }
 }
+

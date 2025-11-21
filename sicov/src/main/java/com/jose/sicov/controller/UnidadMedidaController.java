@@ -13,7 +13,7 @@ import com.jose.sicov.service.impl.UnidadMedidaServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/unidades-medida")
+@RequestMapping("/api/v1/unidades-medida")
 @AllArgsConstructor
 public class UnidadMedidaController {
 

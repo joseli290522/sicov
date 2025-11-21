@@ -20,7 +20,7 @@ import com.jose.sicov.service.impl.ProveedorServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/proveedores")
+@RequestMapping("/api/v1/proveedores")
 @AllArgsConstructor
 public class ProveedorController {
 

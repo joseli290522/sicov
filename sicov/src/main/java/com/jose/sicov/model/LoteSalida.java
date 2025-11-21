@@ -1,11 +1,9 @@
 package com.jose.sicov.model;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
-
 import com.jose.sicov.dto.LoteSalidaDTO;
 import com.jose.sicov.util.IMapper;
 
@@ -37,7 +35,6 @@ public class LoteSalida extends Base implements IMapper<LoteSalidaDTO> {
         return LoteSalidaDTO.builder()
             .id(this.id)
             .lote(this.lote.getDto())
-            //.detalle(this.detalleVenta.getDto())
             .cantidadConsumida(this.cantidadConsumida)
             .fechaSalida(this.fechaSalida)
             .build();
