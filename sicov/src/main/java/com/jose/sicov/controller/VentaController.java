@@ -4,6 +4,9 @@ import com.jose.sicov.dto.VentaDTO;
 import com.jose.sicov.model.Venta;
 import com.jose.sicov.repository.VentaRepository;
 import com.jose.sicov.service.impl.VentaServiceImpl;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +19,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1//ventas")
+@RequestMapping("/api/v1/ventas")
 public class VentaController {
 
     @Autowired
@@ -51,5 +54,10 @@ public class VentaController {
     public ResponseEntity<VentaDTO> obtenerVentaPorId(@PathVariable Long id) {
         Optional<Venta> venta = ventaRepository.findById(id);
         return ResponseEntity.ok(venta.get().getDto());
+    }
+
+    @GetMapping("/export/pdf/{id}")
+    public void exportarVentaPDF(@PathVariable Long id, HttpServletResponse response) {
+        ventaService.exportarVentaAPdf(id, response);
     }
 }
