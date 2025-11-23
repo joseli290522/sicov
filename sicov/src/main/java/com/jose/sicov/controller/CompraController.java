@@ -6,10 +6,13 @@ import com.jose.sicov.repository.CompraRepository;
 import com.jose.sicov.service.impl.CompraServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +31,18 @@ public class CompraController {
     
     // GET /api/compras - UI: Lista de Historial de Compras
     @GetMapping
-    public ResponseEntity<Page<CompraDTO>> listarCompras(Pageable pageable) {
-        return ResponseEntity.ok(compraRepository.findAll(pageable).map(Compra::getDto));
+    public ResponseEntity<Page<CompraDTO>> listarCompras(
+            // Parámetro opcional para buscar por proveedor
+            @RequestParam(required = false) String query,
+            // Parámetro opcional para filtrar por fecha (formato ISO: YYYY-MM-DD)
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            Pageable pageable) {
+
+        String safeQuery = (query != null && !query.trim().isEmpty()) ? query.trim() : null;
+
+        Page<Compra> comprasPage = compraRepository.searchCompras(safeQuery, date, pageable);
+        
+        return ResponseEntity.ok(comprasPage.map(Compra::getDto));
     }
     
     // GET /api/compras/{id} - UI: Detalle de una compra

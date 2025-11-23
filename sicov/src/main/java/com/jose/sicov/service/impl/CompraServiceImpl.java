@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.NoSuchElementException;
 
 @Service
@@ -40,7 +42,8 @@ public class CompraServiceImpl {
         compra.setProveedor(proveedor);
         compra.setAlmacen(almacen);
         compra.setTotal(compraDTO.getTotal()); 
-        compra.setFechaCompra(compraDTO.getFechaCompra());
+        //compra.setFechaCompra(compraDTO.getFechaCompra());
+        compra.setFechaCompra(LocalDate.now(ZoneId.of("America/Mexico_City")));
         compra.setActivo(true);
         Compra compraGuardada = compraRepository.save(compra);
 
