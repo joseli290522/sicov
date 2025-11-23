@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter; 
 
 // IMPORTS NECESARIOS PARA IMAGEN
@@ -96,7 +98,8 @@ public class VentaServiceImpl {
         //venta.setImpuestoIEPS(ieps);
         venta.setSubtotal(ventaDTO.getSubtotal());
         venta.setTotalFinal(ventaDTO.getTotalFinal()); 
-        venta.setFechaVenta(ventaDTO.getFechaVenta());
+        //venta.setFechaVenta(ventaDTO.getFechaVenta());
+        venta.setFechaVenta(LocalDate.now(ZoneId.of("America/Mexico_City")));
         venta.setMetodoPago(ventaDTO.getMetodoPago());
         venta.setMontoRecibido(ventaDTO.getMontoRecibido());
         venta.setActivo(true);
