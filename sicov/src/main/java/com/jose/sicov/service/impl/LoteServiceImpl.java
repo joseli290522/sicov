@@ -37,8 +37,7 @@ public class LoteServiceImpl implements ILoteService {
             // Caso 1: UPDATE (Suma la cantidad al lote existente)
             lote = optionalLote.get();
             lote.setCantidadActual(lote.getCantidadActual() + detalleDTO.getCantidad());
-            lote.setCantidadInicial(lote.getCantidadInicial() + detalleDTO.getCantidad()); // También actualiza el inicial si se usa como histórico
-            // Se puede actualizar la fecha de vencimiento si el DTO lo permite, pero mejor mantener el original.
+            lote.setCantidadInicial(lote.getCantidadInicial() + detalleDTO.getCantidad());
         } else {
             // Caso 2: INSERT (Crea un nuevo lote)
             Producto producto = productoRepository.findById(detalleDTO.getProductoId())

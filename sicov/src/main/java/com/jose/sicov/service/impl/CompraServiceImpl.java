@@ -10,7 +10,6 @@ import com.jose.sicov.service.interfaces.ILoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.NoSuchElementException;
@@ -45,6 +44,7 @@ public class CompraServiceImpl {
         //compra.setFechaCompra(compraDTO.getFechaCompra());
         compra.setFechaCompra(LocalDate.now(ZoneId.of("America/Mexico_City")));
         compra.setActivo(true);
+
         Compra compraGuardada = compraRepository.save(compra);
 
         // 2. Procesar Detalles (La clave del Módulo)

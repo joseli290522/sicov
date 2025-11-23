@@ -34,7 +34,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         
         // 1. Establecer el origen permitido (tu frontend)
-        configuration.setAllowedOrigins(List.of(FRONTEND_ORIGIN));
+        configuration.setAllowedOrigins(List.of(FRONTEND_ORIGIN, "http://localhost:9000"));
         
         // 2. Establecer métodos (incluyendo OPTIONS, que es el preflight)
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
