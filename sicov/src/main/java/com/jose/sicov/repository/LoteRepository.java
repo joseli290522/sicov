@@ -27,8 +27,14 @@ public interface LoteRepository extends JpaRepository<Lote, Long>, JpaSpecificat
      * Consulta para obtener todos los lotes activos en inventario.
      * Ordena por nombre de producto y luego por fecha de vencimiento (ASC).
      */
-    @Query("SELECT l FROM Lote l LEFT JOIN FETCH l.producto p WHERE l.activo = true ORDER BY p.nombre ASC, l.fechaVencimiento ASC")
-    List<Lote> findAllActiveLotesOrderedByProductAndExpiry();
+   @Query("SELECT l FROM Lote l LEFT JOIN FETCH l.producto p " +
+           "WHERE l.activo = true " +
+           "AND (:term IS NULL OR :term = '' OR " +
+           "   LOWER(p.nombre) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
+           "   LOWER(l.numeroLote) LIKE LOWER(CONCAT('%', :term, '%'))" +
+           ") " +
+           "ORDER BY p.nombre ASC, l.fechaVencimiento ASC")
+    List<Lote> findActiveLotesWithFilter(@Param("term") String term);
     
     
     @Modifying
