@@ -25,7 +25,7 @@ import java.util.List; // Importar List
 public class SecurityConfig {
 
     // URL de tu frontend (IMPORTANTE: Debe ser la URL exacta que aparece en el error de CORS)
-    private static final String FRONTEND_ORIGIN = "https://ideal-funicular-x7wrx649r5v3ppwv-9000.app.github.dev";
+    private static final String FRONTEND_ORIGIN = "https://sicov-frontend.onrender.com";
 
     
     // 🚨 1. BEAN PARA LA CONFIGURACIÓN DE CORS 🚨
